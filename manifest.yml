@@ -1,0 +1,9 @@
+---
+applications:
+- name: cache-demo
+  random-route: true
+  path: target/cache-demo-0.0.1-SNAPSHOT.jar
+  buildpack: java_buildpack_offline
+  services:
+  - test-pcc
+  - test-mysql
