@@ -24,7 +24,7 @@ The Customer Search service has the following APIs:
 Spring Tool Suite (STS) / IntelliJ IDEA
   
   
-![IMG_001](https://github.com/Pivotal-Field-Engineering/pad-pcc-demo/tree/master/images/IMG_001.png)
+![IMG_001](https://github.com/Pivotal-Field-Engineering/pad-pcc-demo/blob/master/images/IMG_001.png)
 
 
 
