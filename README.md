@@ -25,3 +25,14 @@ Spring Tool Suite (STS) / IntelliJ IDEA
   
   
 ![IMG_001](https://github.com/liwang-pivotal/PCC-Caching-Demo/blob/master/images/IMG_001.png)
+
+
+
+#### Prerequisite for this demo
+
+Install [Spring Cloud GemFire Connector](https://github.com/pivotal-cf/spring-cloud-gemfire-connector/tree/v1.1.0) dependencies into your local Maven repo:
+```
+> git clone -b v1.1.0 https://github.com/pivotal-cf/spring-cloud-gemfire-connector.git  
+> cd spring-cloud-gemfire-connector  
+> gradle clean install  
+```
