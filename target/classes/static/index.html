@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Pivotal CloudCache Chat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/demo.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.5.2/superagent.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div id="demo">
+		<div id="navbar">
+			<div id="title">Pivotal Caching Demo</div>
+		</div>
+
+		<div id="load_bar">
+			# of customers to load <input id="load_num" type='text' />
+			<button id="load" class="btn btn-warning" onclick="move()">load</button>
+			<div id="loading_status"></div>
+			<div class="progress" style="display: none;">
+				<div class="progress-bar progress-bar-striped active" id="progress_bar"
+					role="progressbar" aria-valuemin="0"
+					aria-valuemax="100"></div>
+			</div>
+		</div><br/>
+
+		<div id="cache_stats" class="stats_box">Cache
+			<div id="cache_num" class="stats_num">0</div>
+			<button id="showcache" class="btn btn-success" onclick="showcache()">Show</button>
+			<button id="clearcache" class="btn btn-danger" onclick="clearcache()">Clear</button>
+		</div>
+		<div id="db_stats" class="stats_box">Database
+			<div id="db_num" class="stats_num">0</div>
+			<button id="showdb" class="btn btn-success" onclick="showdb()">Show</button>
+			<button id="cleardb" class="btn btn-danger" onclick="cleardb()">Clear</button>
+		</div>
+
+		<div id="search_tool">
+			<input id="search_content" type='text' placeholder="email address..."/>
+			<button id="search" class="btn btn-default" onclick="search()">Search</button>
+		</div>
+		
+		<div id="db_customers"></div>
+	</div>
+	
+	<script>
+		function update_stats() {
+			superagent.get('/countdb')
+			.then(function(res) {
+				$("#db_num").html(res.text);
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});
+			superagent.get('/countcache')
+			.then(function(res) {
+				$("#cache_num").html(res.text);
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});
+		}
+	
+		update_stats();
+		
+		function search() {
+			superagent.get('/customerSearch')
+			.query({ email: $("#search_content").val() })
+			.then(function(res) {
+				$("#search_content").val('');
+				$("#db_customers").html(res.text);
+				update_stats();
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});	
+		}
+	
+		function loaddb() {
+			superagent.get('/loaddb')
+			.then(function(res) {
+				$("#db_customers").html(res.text);
+				update_stats();
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});	
+		}
+		
+		function showdb() {
+			superagent.get('/showdb')
+			.then(function(res) {
+				$("#db_customers").html(res.text);
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});	
+		}
+		
+		function cleardb() {
+			$("#loading_status").show().html("Cleaning Database...");
+			superagent.get('/cleardb')
+			.then(function(res) {
+				$("#db_customers").html("");
+				$("#loading_status").html("Cleaned.").fadeOut(3000);
+				update_stats();
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});	
+		}
+		
+		function showcache() {
+			superagent.get('/showcache')
+			.then(function(res) {
+				$("#db_customers").html(res.text);
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});	
+		}
+		
+		function clearcache() {
+			superagent.get('/clearcache')
+			.then(function(res) {
+				$("#db_customers").html(res.text);
+				update_stats();
+		  	})
+		  	.catch(function (error) {
+		    	console.log(error);
+			});	
+		}
+		
+		function load(n) {
+ 			var xmlHttp = new XMLHttpRequest();
+ 			xmlHttp.open( "GET", "/loaddb?amount="+n, false );
+ 			xmlHttp.send( null );
+			
+ 			update_stats();
+		}
+		
+		function move() {	
+			var BATCH_SIZE = 1000;
+			$(".progress").show();
+			
+			if (!isNaN($("#load_num").val())) {
+				var load_num = $("#load_num").val();
+				$("#loading_status").show().html("Loading...");
+				$("#load_num").val('');
+				
+				var current = 0;
+				var elem = document.getElementById("progress_bar"); 
+			    var width = 0;
+			    var id = setInterval(frame, 10);
+			    
+			    function frame() {
+			        if (current >= load_num) {
+			            clearInterval(id);
+			            $("#loading_status").html("Loaded.").fadeOut(3000);
+			            elem.style.width = "0%";
+			            $(".progress").hide();
+			        } else {
+			        	var num_left = load_num - current;
+			        	var num_to_load = Math.min(num_left, BATCH_SIZE);
+			        	
+			        	load(num_to_load);
+			        	current += num_to_load;
+			        	
+			            elem.style.width = Math.round(current/load_num*100) + '%';
+			        }
+			    }
+				
+			} else {
+				$("#load_num").val('');
+				$("#loading_status").html("Invalid number... Please retry.");
+			}
+		}
+		
+	</script>
+</body>
+
+</html>

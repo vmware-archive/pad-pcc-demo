@@ -1,0 +1,9 @@
+io/pivotal/controller/CustomerController.class
+io/pivotal/config/DemoLocalConfig.class
+io/pivotal/controller/HomeController.class
+io/pivotal/domain/Customer.class
+io/pivotal/repo/jpa/CustomerRepository.class
+io/pivotal/repo/pcc/CustomerRepository.class
+io/pivotal/service/CustomerSearchService.class
+io/pivotal/config/DemoCloudConfig.class
+io/pivotal/DemoApplication.class

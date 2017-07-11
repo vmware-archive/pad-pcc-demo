@@ -7,6 +7,7 @@ import org.apache.geode.cache.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,25 +29,13 @@ public class CustomerController {
 	io.pivotal.repo.jpa.CustomerRepository jpaCustomerRepository;
 	
 	@Autowired
-	Region<String, Customer> customerRegion;
+	ClientRegionFactoryBean<String, Customer> customerRegionFactory;
 	
 	@Autowired
 	CustomerSearchService customerSearchService;
 	
 	Fairy fairy = Fairy.create();
 	
-	
-//	@RequestMapping("/")
-//	public String home() {
-//		return "Customer Search Service -- Available APIs: <br/>"
-//				+ "<br/>"
-//				+ "GET /showcache    	               - get all customer info in PCC<br/>"
-//				+ "GET /clearcache                     - remove all customer info in PCC<br/>"
-//				+ "GET /showdb  	                   - get all customer info in MySQL<br/>"
-//				+ "GET /cleardb                        - remove all customer info in MySQL<br/>"
-//				+ "GET /loaddb                         - load 500 customer info into MySQL<br/>"
-//				+ "GET /customerSearch?email={email}   - get specific customer info<br/>";
-//	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/showcache")
 	@ResponseBody
@@ -61,6 +50,7 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.GET, path = "/clearcache")
 	@ResponseBody
 	public String clearCache() throws Exception {
+		Region<String, Customer> customerRegion = customerRegionFactory.getObject();
 		customerRegion.removeAll(customerRegion.keySetOnServer());
 		return "Region cleared";
 	}

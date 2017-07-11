@@ -1,0 +1,73 @@
+#navbar {
+    background-color: #00b3b3;
+}
+
+#title {
+	display: inline-block;
+    color: #F0F8FF;
+	margin: 12px;
+	font-size: 2.5rem;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.stats_box {
+	display: inline-block;
+	margin: 10px;
+	border: 2px solid #e6e6e6;
+	border-radius: 8px;
+	width: 12%;
+	height: 30%;
+	padding: 10px;
+	text-align: center;
+	font-size: 1.5rem;
+	font-style: normal;
+	font-weight: bold;
+	font-family: system-ui;
+	color: #999999;
+}
+
+#search_tool {
+	display: inline-block;
+	text-align: center;
+	padding: 10px;
+	width: 40%;
+}
+
+#search_content {
+	width: 60%;
+}
+
+.stats_num {
+	font-size: 3rem;
+	font-style: normal;
+	font-weight: bold;
+	margin: 8px;
+	color: black;
+}
+
+
+#load_bar {
+	display: inline-block;
+	padding: 10px;
+	width: 50%;
+}
+
+#load_num {
+	width: 20%;
+	margin: 8px;
+}
+
+#loading_status {
+	display: inline-block;
+	margin: 8px;
+	font-size: 1.5rem;
+	font-style: normal;
+	font-weight: bold;
+}
+
+#progress_bar {
+    width: 0%;
+    height: 30px;
+}
+

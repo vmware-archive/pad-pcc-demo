@@ -5,23 +5,19 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.gemfire.client.ClientCacheFactoryBean;
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
+import org.springframework.data.gemfire.support.ConnectionEndpoint;
 import org.springframework.data.gemfire.support.GemfireCacheManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import io.pivotal.domain.Customer;
 
 import javax.sql.DataSource;
 
-import org.apache.geode.cache.Region;
-import org.apache.geode.cache.client.ClientCache;
-import org.apache.geode.cache.client.ClientCacheFactory;
-import org.apache.geode.cache.client.ClientRegionFactory;
+import org.apache.geode.cache.GemFireCache;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.apache.geode.pdx.ReflectionBasedAutoSerializer;
 
@@ -31,24 +27,7 @@ import org.apache.geode.pdx.ReflectionBasedAutoSerializer;
 public class DemoLocalConfig {
 	
 	@Autowired 
-	ClientCache clientCache;
-
-//	@Bean
-//    public DataSource dataSource() {
-//            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//             
-//            dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//            dataSource.setUsername("admin");
-//            dataSource.setPassword("admin");
-//            dataSource.setUrl("jdbc:mysql://localhost:3306/test");
-//            
-//            ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-//            databasePopulator.addScript(new ClassPathResource("sql/create_table.sql"));
-//            
-//            DatabasePopulatorUtils.execute(databasePopulator, dataSource);
-//             
-//            return dataSource;
-//    }
+	GemFireCache clientCache;
 	
 	@Bean
 	public DataSource dataSource() {
@@ -63,25 +42,24 @@ public class DemoLocalConfig {
 	}
 	
 	@Bean(name = "gemfireCache")
-	public ClientCache clientCache() {
-		ClientCacheFactory ccf = new ClientCacheFactory();
-		ccf.addPoolLocator("localhost", 10334);
+	public ClientCacheFactoryBean clientCache() {
+		ClientCacheFactoryBean ccf = new ClientCacheFactoryBean();
+		ccf.addLocators(new ConnectionEndpoint("localhost", 10334));
 		ccf.setPdxSerializer(new ReflectionBasedAutoSerializer(".*"));
 		ccf.setPdxReadSerialized(false);
-		ccf.setPoolSubscriptionEnabled(true);
+		ccf.setSubscriptionEnabled(true);
 
-		ClientCache clientCache = ccf.create();
-
-		return clientCache;
+		return ccf;
 	}
 	
 	@Bean(name = "customer")
-	public Region<String, Customer> customerRegion() {
-		ClientRegionFactory<String, Customer> customerRegionFactory = clientCache.createClientRegionFactory(ClientRegionShortcut.PROXY);
+	public ClientRegionFactoryBean<String, Customer> customerRegion() {
+		ClientRegionFactoryBean<String, Customer> customerRegionFactory = new ClientRegionFactoryBean<>();
+		customerRegionFactory.setCache(clientCache);
+		customerRegionFactory.setShortcut(ClientRegionShortcut.PROXY);
+		customerRegionFactory.setName("customer");
 
-		Region<String, Customer> customerRegion = customerRegionFactory.create("customer");
-
-		return customerRegion;
+		return customerRegionFactory;
 	}
 	
 	@Bean(name="cacheManager")
