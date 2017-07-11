@@ -1,9 +1,0 @@
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/config/DemoLocalConfig.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/repo/pcc/CustomerRepository.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/DemoApplication.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/repo/jpa/CustomerRepository.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/controller/CustomerController.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/config/DemoCloudConfig.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/service/CustomerSearchService.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/controller/HomeController.java
-/Users/lwang/Desktop/pad-pcc-demo/src/main/java/io/pivotal/domain/Customer.java
