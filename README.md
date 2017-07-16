@@ -29,11 +29,5 @@ Spring Tool Suite (STS) / IntelliJ IDEA
 
 
 
-#### Prerequisite for this demo
-
-Install [Spring Cloud GemFire Connector](https://github.com/pivotal-cf/spring-cloud-gemfire-connector/tree/v1.1.0) dependencies into your local Maven repo:
-```
-> git clone -b v1.1.0 https://github.com/pivotal-cf/spring-cloud-gemfire-connector.git  
-> cd spring-cloud-gemfire-connector  
-> gradle clean install  
-```
+#### TO DO
+- ADD CQ and Client Subscriptions
