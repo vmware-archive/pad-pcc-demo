@@ -31,7 +31,7 @@ public class CustomerSearchService {
 		
 		setCacheMiss();
 
-		Customer customer = jpaCustomerRepository.findByEmail(email);
+		Customer customer = jpaCustomerRepository.findDistinctByEmail(email);
 
 		return customer;
 	}
