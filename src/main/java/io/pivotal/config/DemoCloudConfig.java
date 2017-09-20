@@ -6,9 +6,7 @@ import io.pivotal.domain.Customer;
 import io.pivotal.spring.cloud.service.gemfire.GemfireServiceConnectorConfig;
 
 import org.apache.geode.cache.GemFireCache;
-import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
-import org.apache.geode.cache.client.ClientRegionFactory;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.apache.geode.pdx.ReflectionBasedAutoSerializer;
 import org.springframework.beans.factory.annotation.Autowired;

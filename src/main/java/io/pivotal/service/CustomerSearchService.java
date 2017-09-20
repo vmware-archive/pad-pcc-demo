@@ -3,6 +3,8 @@ package io.pivotal.service;
 import io.pivotal.domain.Customer;
 import io.pivotal.repo.jpa.CustomerRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -30,10 +32,10 @@ public class CustomerSearchService {
 	public Customer getCustomerByEmail(String email) {
 		
 		setCacheMiss();
-
-		Customer customer = jpaCustomerRepository.findDistinctByEmail(email);
-
-		return customer;
+		
+		List<Customer> customers = jpaCustomerRepository.findByEmail(email);
+		
+		return customers.size() == 0 ? null : customers.get(0);
 	}
 
 }

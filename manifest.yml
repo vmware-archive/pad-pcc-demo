@@ -7,4 +7,4 @@ applications:
   buildpack: java_buildpack_offline
   services:
   - test-pcc
-  - test-mysql
+  - syf-mysql
