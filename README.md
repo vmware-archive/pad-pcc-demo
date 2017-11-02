@@ -1,5 +1,7 @@
-## Caching Data with Pivotal Cloud Cache (PCC)
-This guide walks through the process of using PCC to cache certain results to speed up your frontend app.
+## Pivotal Cloud Cache (PCC) Primer App
+This is a simple app which demonstrates Look-Aside caching pattern and leverages Spring Cloud Connector and Spring Data modules with Pivotal Cloud Cache(PCC) and Pivotal MySQL v2 Tiles.
+
+Please reach out to Pivotal Architecture for Data(PAD) team at pad@pivotal.io for any information
 
 ![IMG_002](https://github.com/Pivotal-Field-Engineering/pad-pcc-demo/blob/master/images/IMG_002.png) 
   
