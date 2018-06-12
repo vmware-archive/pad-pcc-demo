@@ -8,7 +8,6 @@ import org.apache.geode.cache.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,7 +24,7 @@ public class CustomerController {
 	io.pivotal.repo.jpa.CustomerRepository jpaCustomerRepository;
 	
 	@Resource(name = "customer")
-	ClientRegionFactoryBean<String, Customer> customerRegionFactory;
+	Region<String, Customer> customerRegion;
 	
 	@Autowired
 	CustomerSearchService customerSearchService;
@@ -46,7 +45,6 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.GET, path = "/clearcache")
 	@ResponseBody
 	public String clearCache() throws Exception {
-		Region<String, Customer> customerRegion = customerRegionFactory.getObject();
 		customerRegion.removeAll(customerRegion.keySetOnServer());
 		return "Region cleared";
 	}
