@@ -4,11 +4,14 @@ import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
 import io.pivotal.domain.Customer;
 import io.pivotal.service.CustomerSearchService;
+import org.apache.geode.cache.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +24,8 @@ public class CustomerController {
 	@Autowired
 	io.pivotal.repo.jpa.CustomerRepository jpaCustomerRepository;
 	
-//	@Autowired
-//	ClientRegionFactoryBean<String, Customer> customerRegionFactory;
+	@Resource(name = "customer")
+	ClientRegionFactoryBean<String, Customer> customerRegionFactory;
 	
 	@Autowired
 	CustomerSearchService customerSearchService;
@@ -43,9 +46,8 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.GET, path = "/clearcache")
 	@ResponseBody
 	public String clearCache() throws Exception {
-//		Region<String, Customer> customerRegion = customerRegionFactory.getObject();
-//		customerRegion.removeAll(customerRegion.keySetOnServer());
-		pccCustomerRepository.deleteAll();
+		Region<String, Customer> customerRegion = customerRegionFactory.getObject();
+		customerRegion.removeAll(customerRegion.keySetOnServer());
 		return "Region cleared";
 	}
 	
