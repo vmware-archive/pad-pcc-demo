@@ -1,23 +1,16 @@
 package io.pivotal.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.geode.cache.Region;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
 import io.pivotal.domain.Customer;
 import io.pivotal.service.CustomerSearchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class CustomerController {
@@ -28,8 +21,8 @@ public class CustomerController {
 	@Autowired
 	io.pivotal.repo.jpa.CustomerRepository jpaCustomerRepository;
 	
-	@Autowired
-	ClientRegionFactoryBean<String, Customer> customerRegionFactory;
+//	@Autowired
+//	ClientRegionFactoryBean<String, Customer> customerRegionFactory;
 	
 	@Autowired
 	CustomerSearchService customerSearchService;
@@ -50,8 +43,9 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.GET, path = "/clearcache")
 	@ResponseBody
 	public String clearCache() throws Exception {
-		Region<String, Customer> customerRegion = customerRegionFactory.getObject();
-		customerRegion.removeAll(customerRegion.keySetOnServer());
+//		Region<String, Customer> customerRegion = customerRegionFactory.getObject();
+//		customerRegion.removeAll(customerRegion.keySetOnServer());
+		pccCustomerRepository.deleteAll();
 		return "Region cleared";
 	}
 	
@@ -80,7 +74,7 @@ public class CustomerController {
 			customers.add(customer);
 		}
 		
-		jpaCustomerRepository.save(customers);
+		jpaCustomerRepository.saveAll(customers);
 		
 		return "New customers successfully saved into Database";
 	}

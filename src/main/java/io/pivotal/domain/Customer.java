@@ -1,14 +1,15 @@
 package io.pivotal.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.gemfire.mapping.annotation.Region;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.gemfire.mapping.Region;
 
 @Entity
 @Table(name = "customer")
-@Region("customer")
+@Region(name = "customer")
 public class Customer {
 	
 	@Id
