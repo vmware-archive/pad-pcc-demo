@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>cache-demo</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Pivotal Cloud Cache LookAside Demo</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,13 +57,24 @@
             </exclusions>
 		</dependency>
 
-        <!-- Spring Boot Data Geode -->
+ <!-- Spring Boot Data Geode -->
         <dependency>
             <groupId>org.springframework.geode</groupId>
             <artifactId>gemfire-spring-boot-starter</artifactId>
             <version>1.0.0.BUILD-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.data</groupId>
+                    <artifactId>spring-data-geode</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-gemfire</artifactId>
+            <version>2.0.8.BUILD-SNAPSHOT</version>
+        </dependency>
         <!-- Spring Cloud Connector for Cloud Foundry -->
 
         <dependency>

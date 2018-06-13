@@ -1,6 +1,6 @@
 ---
 applications:
-- name: cache-demo
+- name: pcc-lookaside-cache
   random-route: true
   mem: 2G
   path: target/cache-demo-0.0.1-SNAPSHOT.jar
