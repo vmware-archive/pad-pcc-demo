@@ -20,7 +20,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.2.RELEASE</version>
+		<version>2.0.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -60,32 +60,10 @@
  <!-- Spring Boot Data Geode -->
         <dependency>
             <groupId>org.springframework.geode</groupId>
-            <artifactId>gemfire-spring-boot-starter</artifactId>
-            <version>1.0.0.BUILD-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.data</groupId>
-                    <artifactId>spring-data-geode</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>spring-gemfire-starter</artifactId>
+            <version>1.0.0.M3</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-gemfire</artifactId>
-            <version>2.0.8.BUILD-SNAPSHOT</version>
-        </dependency>
-        <!-- Spring Cloud Connector for Cloud Foundry -->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-spring-service-connector</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-cloudfoundry-connector</artifactId>
-        </dependency>
-
+        
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
@@ -121,6 +99,14 @@
 			<id>spring-repository</id>
 			<name>Spring Repository</name>
 			<url>http://repo.spring.io/libs-release</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
         <repository>
             <id>spring-snapshot</id>

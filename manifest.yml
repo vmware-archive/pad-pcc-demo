@@ -6,5 +6,5 @@ applications:
   path: target/cache-demo-0.0.1-SNAPSHOT.jar
   buildpack: java_buildpack_offline
   services:
-  - dev-cluster
-  - mysql-dev
+  - pcc-session-cluster
+  - mysql-dev-instance

@@ -16,6 +16,5 @@ import org.springframework.geode.config.annotation.UseMemberName;
 @EnableLogging(logLevel = "info")
 @UseMemberName("PivotalCloudCacheDemoApplication")
 @EnableJpaRepositories(basePackages = {"io.pivotal.repo.jpa"})
-@SuppressWarnings("unused")
 public class CloudCacheConfig {
 }
