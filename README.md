@@ -1,4 +1,4 @@
-## Pivotal Cloud Cache (PCC) Primer App
+<h1> VMware has ended active development of this project, this repository will no longer be updated.</h1><br>## Pivotal Cloud Cache (PCC) Primer App
 This is a simple app which demonstrates Look-Aside caching pattern and leverages Spring Cloud Connector and Spring Data modules with Pivotal Cloud Cache(PCC) and Pivotal MySQL v2 Tiles.
 
 Please reach out to Pivotal Architecture for Data(PAD) team at pad@pivotal.io for any information
